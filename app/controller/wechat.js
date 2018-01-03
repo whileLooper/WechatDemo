@@ -10,7 +10,7 @@ module.exports = app => {
   // 因为 Egg 需要用类的形式来组织，而 wechat 是通过 middleware 方法来生成中间件
   WechatController.prototype.index = wechat(config)
     .middleware(async (message, ctx) => {
-      return ctx.body = 'hello wechat';
+      return 'hello wechat';
     });
 
   return WechatController;
