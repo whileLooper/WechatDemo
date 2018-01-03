@@ -10,8 +10,6 @@ module.exports = app => {
   // 因为 Egg 需要用类的形式来组织，而 wechat 是通过 middleware 方法来生成中间件
   WechatController.prototype.index = wechat(config)
     .middleware(async (message, ctx) => {
-      console.log(app);
-      // TODO
       // 微信输入信息就是这个 message
       if (message.FromUserName === 'diaosi') {
         // 回复屌丝(普通回复)

@@ -5,5 +5,5 @@
  */
 module.exports = app => {
   const { controller } = app;
-  app.all('/', controller.wechat.index);
+  app.all('/', controller.home.index);
 };
