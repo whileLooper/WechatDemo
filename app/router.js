@@ -5,5 +5,5 @@
  */
 module.exports = app => {
   const { controller } = app;
-  app.all('/', controller.home.index);
+  app.all('/', controller.home);
 };
