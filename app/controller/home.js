@@ -1,6 +1,7 @@
 'use strict';
 
 const Controller = require('egg').Controller;
+const wechat = require('co-wechat');
 
 class HomeController extends Controller {
   async index() {
