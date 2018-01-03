@@ -11,7 +11,7 @@ module.exports = appInfo => {
 
   // wechat config
   config.wechatConfig = {
-    port: '8080',
+    port: '80',
     token: 'bhu89ijnmko0',
     appid: 'wxd61026a80b610e7c',
     appSecret: '587a45fca820916e183acca9e41839e',
