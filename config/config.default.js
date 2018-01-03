@@ -9,5 +9,16 @@ module.exports = appInfo => {
   // add your config here
   config.middleware = [];
 
+  // wechat config
+  config.wechatConfig = {
+    port: '8080',
+    token: 'bhu89ijnmko0',
+    appid: 'wxd61026a80b610e7c',
+    appSecret: '587a45fca820916e183acca9e41839e',
+    encodingAESKey: 'HX2DzbFRh9qY4toNv9XVL1kYxgoYCTwoZ3haN92kAzl',
+    apiDomain: 'https://api.weixin.qq.com/',
+    accessTokenFilePath: './static/access_token.json',
+  };
+
   return config;
 };

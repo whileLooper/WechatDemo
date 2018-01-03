@@ -4,6 +4,7 @@
   "description": "wechat demo applicaiton",
   "private": true,
   "dependencies": {
+    "co-wechat": "^2.3.0",
     "egg": "^2.0.0",
     "egg-scripts": "^2.1.0"
   },
@@ -21,7 +22,7 @@
     "node": ">=8.9.0"
   },
   "scripts": {
-    "start": "egg-scripts start",
+    "start": "egg-scripts start --daemon",
     "stop": "egg-scripts stop",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
