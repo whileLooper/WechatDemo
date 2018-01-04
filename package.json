@@ -6,7 +6,8 @@
   "dependencies": {
     "co-wechat": "^2.3.0",
     "egg": "^2.0.0",
-    "egg-scripts": "^2.1.0"
+    "egg-scripts": "^2.1.0",
+    "wechat": "^2.1.0"
   },
   "devDependencies": {
     "autod": "^3.0.1",
