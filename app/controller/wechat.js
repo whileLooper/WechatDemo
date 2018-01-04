@@ -1,24 +1,18 @@
 'use strict';
 
 const Controller = require('egg').Controller;
+const config = {
+  appid: 'wxd61026a80b610e7c',
+  appSecret: '587a45fca820916e183acca9e41839e'
+}
 const wechat = require('co-wechat');
 
-module.exports = app => {
-  const config = app.config.wechatConfig;
-  class WechatController extends app.Controller {}
+class WechatController extends Controller {
+  async index() {
+    var api = new API(config.appid, config.appsecret);
+    var token = await api.getAccessToken();
+    this.ctx.body = token;
+  }
+}
 
-  // 因为 Egg 需要用类的形式来组织，而 wechat 是通过 middleware 方法来生成中间件
-  WechatController.prototype.index = wechat(config)
-    .middleware(async (message, ctx) => {
-      return [
-        {
-          title: '你来我家接我吧',
-          description: '这是女神与高富帅之间的对话',
-          picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
-          url: 'http://nodeapi.cloudfoundry.com/'
-        }
-      ];
-    });
-
-  return WechatController;
-};
+module.exports = WechatController;
