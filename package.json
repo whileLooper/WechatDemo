@@ -6,8 +6,11 @@
   "dependencies": {
     "co-wechat": "^2.3.0",
     "co-wechat-api": "^3.3.4",
+    "co-wechat-oauth": "^2.0.1",
+    "co-wechat-payment": "^0.2.0",
     "egg": "^2.0.0",
     "egg-scripts": "^2.1.0",
+    "egg-wechat": "^1.0.6",
     "wechat": "^2.1.0"
   },
   "devDependencies": {
