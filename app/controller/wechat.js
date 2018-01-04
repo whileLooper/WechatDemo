@@ -1,11 +1,12 @@
 'use strict';
 
 const Controller = require('egg').Controller;
+const wechat = require('co-wechat');
+const API = require('co-wechat-api');
 const config = {
   appid: 'wxd61026a80b610e7c',
   appSecret: '587a45fca820916e183acca9e41839e'
 }
-const wechat = require('co-wechat');
 
 class WechatController extends Controller {
   async index() {
