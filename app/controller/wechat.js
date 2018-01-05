@@ -14,7 +14,7 @@ const wechat = require('co-wechat');
 //   return WechatController;
 // };
 
-class HomeController extends Controller {
+class WechatController extends Controller {
   async index() {
     this.ctx.app.use(
       wechat(app.config.wechatConfig).middleware( () => {
@@ -24,4 +24,4 @@ class HomeController extends Controller {
   }
 }
 
-module.exports = HomeController;
+module.exports = WechatController;
