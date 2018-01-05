@@ -17,7 +17,7 @@ module.exports = appInfo => {
     appSecret: '0e49baa28dd88439372c4788a619aa16',
     encodingAESKey: 'HX2DzbFRh9qY4toNv9XVL1kYxgoYCTwoZ3haN92kAzl',
     apiDomain: 'https://api.weixin.qq.com/',
-    accessTokenFilePath: './static/access_token.json',
+    accessTokenFilePath: './static/access_token.json'
   };
 
   return config;
