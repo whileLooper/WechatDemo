@@ -14,7 +14,7 @@ module.exports = app => {
     encodingAESKey: 'HX2DzbFRh9qY4toNv9XVL1kYxgoYCTwoZ3haN92kAzl',
     apiDomain: 'https://api.weixin.qq.com/',
     accessTokenFilePath: './static/access_token.json'
-  }).middleware(async (message, ctx) => {
+  }).middleware( () => {
     // TODO
     return {
       content: 'text object',
