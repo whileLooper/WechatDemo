@@ -2,8 +2,7 @@
 /**
  * @param {Egg.Application} app - egg application
  */
-
 module.exports = app => {
-  // 将 get/post 请求都转给 home.wechat
-  app.all('/wechat', 'home.wechat');
+  const { router, controller } = app;
+  app.all('/wechat', controller.wechat.index);
 };
