@@ -10,7 +10,7 @@ const config = {
 
 class WechatController extends Controller {
   async index() {
-    this.app.use(wechat(app.config.wechatConfig).middleware(async (message, ctx) => {
+    this.ctx.app.use(wechat(config).middleware(async (message, ctx) => {
       // 微信输入信息就是这个 message
       if (message.FromUserName === 'diaosi') {
         // 回复屌丝(普通回复)
