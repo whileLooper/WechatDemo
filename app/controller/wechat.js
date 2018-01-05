@@ -17,8 +17,8 @@ const wechat = require('co-wechat');
 class WechatController extends Controller {
   async index() {
     this.ctx.app.use(
-      wechat(app.config.wechatConfig).middleware( () => {
-        app.service.wechatService.good();
+      wechat(this.app.config.wechatConfig).middleware( () => {
+        this.app.service.wechatService.good();
       })
     );
   }
