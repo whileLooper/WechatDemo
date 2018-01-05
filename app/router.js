@@ -4,5 +4,5 @@
  */
 module.exports = app => {
   const { router, controller } = app;
-  // app.all('/wechat', controller.wechat.index);
+  app.all('/wechat', controller.wechat.index);
 };
