@@ -16,7 +16,7 @@ module.exports = app => {
     accessTokenFilePath: './static/access_token.json'
   }).middleware( () => {
     // TODO
-    app.service.WechatService.good();
+    app.service.wechatService.good();
   });
 
   return WechatController;
