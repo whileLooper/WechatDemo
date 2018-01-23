@@ -1,6 +1,6 @@
-# WechatDemo
+# EggWechat
 
-wechat demo applicaiton
+
 
 ## 快速入门
 
