@@ -5,7 +5,7 @@ const sha1 = require('sha1');
 const wechat = require('co-wechat');
 
 class WechatController extends Controller {
-  async wechat() {
+  async index() {
     // this.app.middleware.initWechat();
 
 
