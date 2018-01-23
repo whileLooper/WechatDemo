@@ -2,11 +2,18 @@
 
 const Controller = require('egg').Controller;
 const sha1 = require('sha1');
+const wechat = require('co-wechat');
 
 class WechatController extends Controller {
-  async index() {
+  async wechat() {
+    // this.app.middleware.initWechat();
+
     
-    this.app.middleware.initWechat(this.config.wechat);
+    wechat(this.config.initWechat).middleware(async (message, ctx) => {
+      console.log('hello');
+      return 'hello';
+      await next();
+    });
   }
 }
 

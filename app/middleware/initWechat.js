@@ -5,7 +5,6 @@ var sha1 = require('sha1');
 module.exports = options => {
   return async function (ctx, next) {
     await next();
-    console.log(options);
     
     var token = options.token;
     var signature = ctx.query.signature;
