@@ -9,5 +9,23 @@ module.exports = appInfo => {
   // add your config here
   config.middleware = [];
 
+  // wechat config
+  config.wechat = {
+    token: 'bhu89ijnmko0',
+    // appid: 'wxd61026a80b610e7c',
+    // secret: '7b9dde29e00e60d9474551e06e409c3f587a45fca820916e183acca9e41839e',
+    // encodingAESKey: 'HX2DzbFRh9qY4toNv9XVL1kYxgoYCTwoZ3haN92kAzl'
+    appID: 'wx58080b1fe9cb4f49',
+    appSecret: '9dba811200ddd73da9a24d7f36762485',
+    encodingAESKey: 'HX2DzbFRh9qY4toNv9XVL1kYxgoYCTwoZ3haN92kAzl'
+  };
+
+  // disable csrf
+  config.security = {
+    csrf: {
+      enable: false,
+    },
+  };
+
   return config;
 };
