@@ -11,8 +11,8 @@ class WechatController extends Controller {
     
     wechat(this.config.initWechat).middleware(async (message, ctx) => {
       console.log('hello');
-      return 'hello';
       await next();
+      return 'hello';
     });
   }
 }
