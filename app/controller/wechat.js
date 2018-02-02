@@ -2,53 +2,54 @@
 
 const Controller = require('egg').Controller;
 const sha1 = require('sha1');
-const wechat = require('co-wechat');
+const weixin = require('../wechat/weixin');
+const Wechat = require('../wechat/wechat');
+const util = require('../wechat/util');
 
 class WechatController extends Controller {
   async index() {
-    // this.app.middleware.initWechat();
-
-
-    wechat(this.config.initWechat).middleware(async (message, ctx) => {
-      // 微信输入信息就是这个 message
-      if (message.FromUserName === 'diaosi') {
-        // 回复屌丝(普通回复)
-        return 'hehe';
-      } else if (message.FromUserName === 'text') {
-        //你也可以这样回复text类型的信息
-        return {
-          content: 'text object',
-          type: 'text'
-        };
-      } else if (message.FromUserName === 'hehe') {
-        // 回复一段音乐
-        return {
-          type: "music",
-          content: {
-            title: "来段音乐吧",
-            description: "一无所有",
-            musicUrl: "http://mp3.com/xx.mp3",
-            hqMusicUrl: "http://mp3.com/xx.mp3"
-          }
-        };
-      } else if (message.FromUserName === 'kf') {
-        // 转发到客服接口
-        return {
-          type: "customerService",
-          kfAccount: "test1@test"
-        };
+    // this.app.use(wechat(this.config.initWechat, weixin.reply, this.ctx));
+  
+    let wechat = new Wechat(this.config.initWechat);
+    
+    let that = this.ctx;
+    let token = this.config.initWechat.token;
+    let signature = that.query.signature;
+    let nonce = that.query.nonce;
+    let timestamp = that.query.timestamp;
+    let echostr = that.query.echostr;
+    let str = [token, timestamp, nonce].sort().join('');
+    let sha = sha1(str);
+    
+    if (that.method === 'GET') {
+      if (sha === signature) {
+        that.body = echostr + '';
       } else {
-        // 回复高富帅(图文回复)
-        return [
-          {
-            title: '你来我家接我吧',
-            description: '这是女神与高富帅之间的对话',
-            picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
-            url: 'http://nodeapi.cloudfoundry.com/'
-          }
-        ];
+        that.body = 'Invalid Signature';
       }
-    });
+    } else if (that.method === 'POST') {
+      console.log('posting...');
+      if (sha !== signature) {
+        that.body = 'wrong';
+        return false;
+      }
+      console.log(that.req);
+
+      var data = await getRowBody(that.req, {
+        length: that.length,
+        limit: '1mb',
+        encoding: that.charset
+      });
+      
+      var content = await util.parseXMLAsync(data);
+      var message = await util.formatMessage(content.xml);
+      
+
+      that.weixin = message;
+      await weixin.reply.call(that, next);
+
+      wechat.reply.call(that);
+    }
   }
 }
 
