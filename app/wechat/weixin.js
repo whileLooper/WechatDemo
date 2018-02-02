@@ -1,6 +1,6 @@
 'use strict';
 
-exports.reply = function* (next) {
+exports.reply = async next => {
 
   const message = this.weixin;
 
@@ -63,5 +63,5 @@ exports.reply = function* (next) {
     this.body = reply;
   }
 
-  yield next;
+  await next;
 };

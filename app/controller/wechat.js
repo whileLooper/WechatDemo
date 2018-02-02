@@ -8,8 +8,8 @@ const Wechat = require('../wechat/wechat');
 const util = require('../wechat/util');
 // const fileRW = require('../../libs/util');
 
-// let path = require('path');
-// let wechat_file = path.join(__dirname, '../../config/test.txt');
+// const path = require('path');
+// const wechat_file = path.join(__dirname, '../../config/test.txt');
 
 class WechatController extends Controller {
   async index() {
@@ -27,12 +27,14 @@ class WechatController extends Controller {
     const sha = sha1(str);
 
     if (that.method === 'GET') {
+      console.log('inside getting...');
       if (sha === signature) {
         that.body = echostr + '';
       } else {
         that.body = 'Invalid Signature';
       }
     } else if (this.method === 'POST') {
+      console.log('inside posting...');
       if (sha !== signature) {
         this.body = 'wrong';
         return false;
