@@ -27,14 +27,14 @@ class WechatController extends Controller {
     const str = [ token, timestamp, nonce ].sort().join('');
     const sha = sha1(str);
 
-    if (that.method === 'POST') {
+    if (that.method === 'GET') {
       console.log('inside getting...');
       if (sha === signature) {
         that.body = echostr + '';
       } else {
         that.body = 'Invalid Signature';
       }
-    } else if (that.method === 'GET') {
+    } else if (that.method === 'POST') {
       console.log('inside posting...');
       if (sha !== signature) {
         that.body = 'wrong';
@@ -42,9 +42,9 @@ class WechatController extends Controller {
       }
       console.log(that);
       const data = await getRowBody(that.req, {
-        length: that.req.headers['content-length'],
+        length: 61696,
         limit: '1mb',
-        encoding: contentType.parse(that.req).parameters.charset,
+        encoding: 'text/html; charset=utf-8',
       });
 
       const content = await util.parseXMLAsync(data);
