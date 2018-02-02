@@ -36,11 +36,11 @@ class WechatController extends Controller {
     } else if (that.method === 'POST') {
       console.log('inside posting...');
       if (sha !== signature) {
-        this.body = 'wrong';
+        that.body = 'wrong';
         return false;
       }
 
-      const data = await getRowBody(this.req, {
+      const data = await getRowBody(that.req, {
         length: this.length,
         limit: '1mb',
         encoding: this.charset,
@@ -49,10 +49,10 @@ class WechatController extends Controller {
       const content = await util.parseXMLAsync(data);
       const message = await util.formatMessage(content.xml);
 
-      this.weixin = message;
-      await weixin.reply.call(this);
+      that.weixin = message;
+      await weixin.reply.call(that);
 
-      wechat.reply.call(this);
+      wechat.reply.call(that);
     }
   }
 }
