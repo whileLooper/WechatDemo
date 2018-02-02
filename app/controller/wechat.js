@@ -1,6 +1,7 @@
 'use strict';
 
 const Controller = require('egg').Controller;
+const contentType = require('content-type');
 const sha1 = require('sha1');
 const getRowBody = require('raw-body');
 const weixin = require('../wechat/weixin');
@@ -26,24 +27,24 @@ class WechatController extends Controller {
     const str = [ token, timestamp, nonce ].sort().join('');
     const sha = sha1(str);
 
-    if (that.method === 'GET') {
+    if (that.method === 'POST') {
       console.log('inside getting...');
       if (sha === signature) {
         that.body = echostr + '';
       } else {
         that.body = 'Invalid Signature';
       }
-    } else if (that.method === 'POST') {
+    } else if (that.method === 'GET') {
       console.log('inside posting...');
       if (sha !== signature) {
         that.body = 'wrong';
         return false;
       }
-
+      console.log(that);
       const data = await getRowBody(that.req, {
-        length: this.length,
+        length: that.req.headers['content-length'],
         limit: '1mb',
-        encoding: this.charset,
+        encoding: contentType.parse(that.req).parameters.charset,
       });
 
       const content = await util.parseXMLAsync(data);

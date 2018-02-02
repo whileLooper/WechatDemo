@@ -6,6 +6,7 @@
   "dependencies": {
     "bluebird": "^3.5.1",
     "co-wechat": "^2.3.0",
+    "content-type": "^1.0.4",
     "egg": "^2.0.0",
     "egg-logger": "^1.6.1",
     "egg-scripts": "^2.1.0",
