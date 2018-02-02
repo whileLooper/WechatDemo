@@ -33,7 +33,7 @@ class WechatController extends Controller {
       } else {
         that.body = 'Invalid Signature';
       }
-    } else if (this.method === 'POST') {
+    } else if (that.method === 'POST') {
       console.log('inside posting...');
       if (sha !== signature) {
         this.body = 'wrong';
