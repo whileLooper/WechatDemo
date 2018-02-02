@@ -5,6 +5,7 @@
  */
 module.exports = app => {
   const { router, controller } = app;
+  // router.verb('/', controller.home.index);
   router.get('/', controller.wechat.index);
-  router.get('/wechat', controller.wechat.index);
+  router.post('/', controller.wechat.index);
 };

@@ -13,7 +13,7 @@ const util = require('../wechat/util');
 // const wechat_file = path.join(__dirname, '../../config/test.txt');
 
 class WechatController extends Controller {
-  async index() {
+  async index(ctx, next) {
     // this.app.use(wechat(this.config.initWechat, weixin.reply, this.ctx));
 
     const wechat = new Wechat(this.config.initWechat);
@@ -35,21 +35,22 @@ class WechatController extends Controller {
         that.body = 'Invalid Signature';
       }
     } else if (that.method === 'POST') {
-      console.log('inside posting...');
+
       if (sha !== signature) {
         that.body = 'wrong';
         return false;
       }
-      console.log(that);
+      console.log(that.req);
       const data = await getRowBody(that.req, {
-        length: 61696,
+        length: that.req.headers['content-length'],
         limit: '1mb',
-        encoding: 'text/html; charset=utf-8',
+        encoding: contentType.parse(that.req).parameters.charset,
       });
 
+      console.log(data);
       const content = await util.parseXMLAsync(data);
       const message = await util.formatMessage(content.xml);
-
+      console.log(message);
       that.weixin = message;
       await weixin.reply.call(that);
 
