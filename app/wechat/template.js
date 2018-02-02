@@ -1,9 +1,9 @@
 'use strict';
 
-var ejs = require('ejs');
-var heredoc = require('heredoc');
+const ejs = require('ejs');
+const heredoc = require('heredoc');
 
-var tpl = heredoc(function () {
+const tpl = heredoc(function() {
   /*
     <xml>
     <ToUserName><![CDATA[<%= toUserName %>]]></ToUserName>
@@ -14,7 +14,7 @@ var tpl = heredoc(function () {
       <Content><![CDATA[<%= content %>]]></Content>
     <% } else if (msgType === 'image') {%>
       <Image>
-        <MediaId><![CDATA[<%= content.media_id %>]]> 
+        <MediaId><![CDATA[<%= content.media_id %>]]>
       </Image>
     <% } else if (msgType === 'voice') {%>
       <Image>
@@ -25,7 +25,7 @@ var tpl = heredoc(function () {
         <MediaId><![CDATA[<%= content.media_id %>]]></MediaId>
         <Title><![CDATA[<%= content.title %>]]></Title>
         <Description><![CDATA[<%= content.description %>]]></Description>
-      </Voice> 
+      </Voice>
     <% } else if (msgType === 'music') {%>
       <Music>
         <Title><![CDATA[<%=content.title%>]]></Title>
@@ -50,8 +50,8 @@ var tpl = heredoc(function () {
    */
 });
 
-var compiled = ejs.compile(tpl);
+const compiled = ejs.compile(tpl);
 
 exports = module.exports = {
-  compiled: compiled
+  compiled,
 };

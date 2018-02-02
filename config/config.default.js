@@ -1,7 +1,7 @@
 'use strict';
-var path = require('path');
-var util = require('../libs/util.js');
-var wechat_file = path.join(__dirname, './wechat.txt');
+const path = require('path');
+const util = require('../libs/util.js');
+const wechat_file = path.join(__dirname, './wechat.txt');
 
 module.exports = appInfo => {
   const config = exports = {};
@@ -21,13 +21,13 @@ module.exports = appInfo => {
     appid: 'wx58080b1fe9cb4f49',
     appSecret: '9dba811200ddd73da9a24d7f36762485',
     encodingAESKey: 'HX2DzbFRh9qY4toNv9XVL1kYxgoYCTwoZ3haN92kAzl',
-    getAccessToken: function() {
+    getAccessToken() {
       return util.readFileAsync(wechat_file);
     },
-    saveAccessToken: function(data) {
+    saveAccessToken(data) {
       data = JSON.stringify(data);
       return util.writeFileAsync(wechat_file, data);
-    }
+    },
   };
 
   // disable csrf

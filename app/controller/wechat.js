@@ -2,53 +2,55 @@
 
 const Controller = require('egg').Controller;
 const sha1 = require('sha1');
+const getRowBody = require('raw-body');
 const weixin = require('../wechat/weixin');
 const Wechat = require('../wechat/wechat');
 const util = require('../wechat/util');
+// const fileRW = require('../../libs/util');
+
+// let path = require('path');
+// let wechat_file = path.join(__dirname, '../../config/test.txt');
 
 class WechatController extends Controller {
   async index() {
     // this.app.use(wechat(this.config.initWechat, weixin.reply, this.ctx));
-  
-    let wechat = new Wechat(this.config.initWechat);
-    
-    let that = this.ctx;
-    let token = this.config.initWechat.token;
-    let signature = that.query.signature;
-    let nonce = that.query.nonce;
-    let timestamp = that.query.timestamp;
-    let echostr = that.query.echostr;
-    let str = [token, timestamp, nonce].sort().join('');
-    let sha = sha1(str);
-    
+
+    const wechat = new Wechat(this.config.initWechat);
+
+    const that = this.ctx;
+    const token = this.config.initWechat.token;
+    const signature = that.query.signature;
+    const nonce = that.query.nonce;
+    const timestamp = that.query.timestamp;
+    const echostr = that.query.echostr;
+    const str = [ token, timestamp, nonce ].sort().join('');
+    const sha = sha1(str);
+
     if (that.method === 'GET') {
       if (sha === signature) {
         that.body = echostr + '';
       } else {
         that.body = 'Invalid Signature';
       }
-    } else if (that.method === 'POST') {
-      console.log('posting...');
+    } else if (this.method === 'POST') {
       if (sha !== signature) {
-        that.body = 'wrong';
+        this.body = 'wrong';
         return false;
       }
-      console.log(that.req);
 
-      var data = await getRowBody(that.req, {
-        length: that.length,
+      const data = await getRowBody(this.req, {
+        length: this.length,
         limit: '1mb',
-        encoding: that.charset
+        encoding: this.charset,
       });
-      
-      var content = await util.parseXMLAsync(data);
-      var message = await util.formatMessage(content.xml);
-      
 
-      that.weixin = message;
-      await weixin.reply.call(that, next);
+      const content = await util.parseXMLAsync(data);
+      const message = await util.formatMessage(content.xml);
 
-      wechat.reply.call(that);
+      this.weixin = message;
+      await weixin.reply.call(this);
+
+      wechat.reply.call(this);
     }
   }
 }

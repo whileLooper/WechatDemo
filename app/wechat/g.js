@@ -4,44 +4,44 @@ var getRowBody = require('raw-body');
 var Wechat = require('./wechat');
 var util = require('./util');
 
-module.exports = function (opts, handler, ctx) {
+module.exports = function (opts, handler) {
   var wechat = new Wechat(opts);
   return function* (next) {
-    var that = ctx;
+    var that = this;
     var token = opts.token;
-    var signature = that.query.signature;
-    var nonce = that.query.nonce;
-    var timestamp = that.query.timestamp;
-    var echostr = that.query.echostr;
+    var signature = this.query.signature;
+    var nonce = this.query.nonce;
+    var timestamp = this.query.timestamp;
+    var echostr = this.query.echostr;
     var str = [token, timestamp, nonce].sort().join('');
     var sha = sha1(str);
 
-    if (that.method === 'GET') {
+    if (this.method === 'GET') {
       if (sha === signature) {
-        that.body = echostr + '';
+        this.body = echostr + '';
       } else {
-        that.body = 'Invalid Signature';
+        this.body = 'Invalid Signature';
       }
-    } else if (that.method === 'POST') {
+    } else if (this.method === 'POST') {
       if (sha !== signature) {
-        that.body = 'wrong';
+        this.body = 'wrong';
         return false;
       }
 
-      var data = yield getRowBody(that.req, {
-        length: that.length,
+      var data = yield getRowBody(this.req, {
+        length: this.length,
         limit: '1mb',
-        encoding: that.charset
+        encoding: this.charset
       });
 
       var content = yield util.parseXMLAsync(data);
       var message = yield util.formatMessage(content.xml);
       console.log(message);
 
-      that.weixin = message;
-      yield handler.call(that, next);
+      this.weixin = message;
+      yield handler.call(this, next);
 
-      wechat.reply.call(that);
+      wechat.reply.call(this);
     }
   }
 }
