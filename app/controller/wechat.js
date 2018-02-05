@@ -52,7 +52,7 @@ class WechatController extends Controller {
       this.weixin = message;
       this.body = await ctx.service.weixin.reply(message);
 
-      console.log(wechat.reply.call(this));
+      wechat.reply.call(this);
     }
   }
 }
