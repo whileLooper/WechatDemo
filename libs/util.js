@@ -16,7 +16,6 @@ exports.readFileAsync = function(fpath, encoding) {
 };
 
 exports.writeFileAsync = function(fpath, content) {
-  console.log('write...');
   return new Promise(function(resolve, reject) {
     fs.writeFile(fpath, content, function(err, content) {
       if (err) {

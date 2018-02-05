@@ -72,9 +72,10 @@ Wechat.prototype.reply = function() {
   const message = this.weixin;
   const xml = util.tpl(content, message);
 
-  this.status = 200;
-  this.type = 'application/xml';
-  this.body = xml;
+  // assign value into ctx, so client side can get proper respnse
+  this.ctx.status = 200;
+  this.ctx.type = 'application/xml';
+  this.ctx.body = xml;
 };
 
 module.exports = Wechat;

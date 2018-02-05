@@ -4,7 +4,6 @@ const Service = require('egg').Service;
 
 class ReplyService extends Service {
   async reply(message) {
-    console.log(message);
     // 消息逻辑处理
     const content = message.Content;
     let reply = '无法回复您的内容： ' + content;

@@ -49,9 +49,10 @@ class WechatController extends Controller {
       const content = await util.parseXMLAsync(data);
       const message = await util.formatMessage(content.xml);
 
-      const replyContent = await ctx.service.weixin.reply(message);
+      this.weixin = message;
+      this.body = await ctx.service.weixin.reply(message);
 
-      // wechat.reply.call(replyContent);
+      console.log(wechat.reply.call(this));
     }
   }
 }
