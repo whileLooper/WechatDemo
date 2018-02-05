@@ -9,9 +9,6 @@ module.exports = appInfo => {
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1516677943930_1131';
 
-  // add your config here
-  config.middleware = [];
-
   // wechat config
   config.initWechat = {
     token: 'bhu89ijnmko0',

@@ -4,7 +4,6 @@ const Controller = require('egg').Controller;
 const contentType = require('content-type');
 const sha1 = require('sha1');
 const getRowBody = require('raw-body');
-const weixin = require('../wechat/weixin');
 const Wechat = require('../wechat/wechat');
 const util = require('../wechat/util');
 // const fileRW = require('../../libs/util');
@@ -28,7 +27,7 @@ class WechatController extends Controller {
     const sha = sha1(str);
 
     if (that.method === 'GET') {
-      console.log('inside getting...');
+
       if (sha === signature) {
         that.body = echostr + '';
       } else {
@@ -40,21 +39,19 @@ class WechatController extends Controller {
         that.body = 'wrong';
         return false;
       }
-      console.log(that.req);
+
       const data = await getRowBody(that.req, {
         length: that.req.headers['content-length'],
         limit: '1mb',
         encoding: contentType.parse(that.req).parameters.charset,
       });
 
-      console.log(data);
       const content = await util.parseXMLAsync(data);
       const message = await util.formatMessage(content.xml);
-      console.log(message);
-      that.weixin = message;
-      await weixin.reply.call(that);
 
-      wechat.reply.call(that);
+      const replyContent = await ctx.service.weixin.reply(message);
+
+      // wechat.reply.call(replyContent);
     }
   }
 }
