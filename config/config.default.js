@@ -34,5 +34,20 @@ module.exports = appInfo => {
     },
   };
 
+  // view engine
+  config.view = {
+    defaultViewEngine: 'nunjucks',
+  };
+
+  // firebase configuration
+  config.firebase = {
+    apiKey: 'AIzaSyCY-ZnN4VWU6As0ZzGAWlPXmXwEpEhLVzY',
+    authDomain: 'radiancestudio-16ba4.firebaseapp.com',
+    databaseURL: 'https://radiancestudio-16ba4.firebaseio.com',
+    projectId: 'radiancestudio-16ba4',
+    storageBucket: 'radiancestudio-16ba4.appspot.com',
+    messagingSenderId: '401950336399',
+  };
+
   return config;
 };
