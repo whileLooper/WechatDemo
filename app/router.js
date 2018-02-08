@@ -10,4 +10,5 @@ module.exports = app => {
   router.post('/', controller.wechat.index);
   router.get('/wechat', controller.wechat.index);
   router.post('/wechat', controller.wechat.index);
+  router.get('/admin', controller.admin.render);
 };
